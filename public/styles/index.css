@@ -1,0 +1,142 @@
+:root {
+    /* #4B9C95 */
+    --header-bg: #eee;
+    --section-bg: #4968bd;
+    --button-bg: #97abd7;
+}
+
+/* =================== header ==================== */
+
+.header {
+    height: 50px;
+    background-color: var(--header-bg);
+    border-radius: 40px;
+    /* border: solid 1px black; */
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 30px;
+    
+    font-size: clamp(15px, 4vw, 25px);
+    color: black;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-right {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+.share-button {
+    width: 70px;
+    height: 70px;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--button-bg);
+    color: white;
+    font-size: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+/* =================== toggle ==================== */
+@media (max-width: 800px) {
+    .menu-toggle {
+        display: block;
+    }
+    .header-right {
+        display: none;
+        position: absolute;
+        top: 70px;
+        width: 35vw;
+        right: 0;
+        background-color: var(--header-bg);
+        border-radius: 0 0 20px 20px;
+        padding: 30px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-right::before {
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: -20px;
+        width: 20px;
+        height: 20px;
+        background: radial-gradient(circle at bottom left, transparent 20px, var(--header-bg) 20px);
+    }
+
+    .icon-arrow {
+        display: none;
+    }
+
+    /* メニューが開いている時のスタイル */
+    .header.menu-open .header-right {
+        display: flex;
+    }
+    .header.menu-open .icon-hamburger {
+        display: none;
+    }
+    .header.menu-open .icon-arrow {
+        display: block;
+    }
+}
+
+/* =================== section ==================== */
+.section-title {
+    margin: 20px 20px 0px 20px;
+    background-color: var(--section-bg);
+    height: 60px;
+    border-radius: 20px 20px 0 0;
+    width: clamp(100px, 35vw, 350px);
+    position: relative;
+    /* 以下テキストの位置 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(15px, 4vw, 25px);
+    font-weight: 600;
+    color: white;
+}
+/* 滑らかにつなげたい */
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -20px;
+    width: 20px;
+    height: 20px;
+    /* 右上角中心の円、中心から半径20pxの範囲transparent、半径20pxより外色指定 */
+    background: radial-gradient(circle at top right, transparent 20px, var(--section-bg) 20px);
+}
+
+.section {
+    background-color: var(--section-bg);
+    height: 200px;
+    margin: 0px 20px 20px 20px;
+    border-radius: 0 20px 20px 20px;
+}

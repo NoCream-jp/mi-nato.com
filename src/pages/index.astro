@@ -1,11 +1,60 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>mi-nato.com</title>
+
+		<link rel="stylesheet" href="/styles/index.css">
+
+		<!-- Font Awesome の読み込み -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+		<!-- Google Fonts (Merriweather) の読み込み -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<header class="header">
+			<div class="header-left"><a href="">mi-nato.com</a></div>
+			<button id="menu-toggle" class="menu-toggle" aria-label="Toggle Menu">
+				<span class="icon-hamburger"><i class="fa-solid fa-bars"></i></span>
+				<span class="icon-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+			</button>
+			<div class="header-right">
+				<a href=""><div>News</div></a>
+				<a href=""><div>About</div></a>
+				<a href=""><div>Works</div></a>
+				<a href=""><div>Studies</div></a>
+				<div>
+					<button class="share-button">
+						<i class="fa-solid fa-arrow-up-right-from-square"></i>
+					</button>
+				</div>
+			</div>
+		</header>
+
+		<div class="section-title">News</div>
+		<div class="news-section section"></div>
+
+		<div class="section-title">About</div>
+		<div class="section"></div>
+
+		<div class="section-title">Works</div>
+		<div class="section"></div>
+
+		<div class="section-title">Studies</div>
+		<div class="section"></div>
+
+		<footer class="footer">
+
+		</footer>
+		<script is:inline src="/scripts/script.js"></script>
+	</body>
+</html>
