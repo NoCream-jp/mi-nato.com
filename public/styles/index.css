@@ -3,7 +3,10 @@
     --header-bg: #eee;
     --section-bg: #4968bd;
     --button-bg: #97abd7;
+    --theme1: #136bca;
+    --theme2: #9bbdf4;
 }
+
 
 /* =================== header ==================== */
 
@@ -17,19 +20,22 @@
     justify-content: space-between;
     align-items: center;
     position: sticky;
-    top: 0;
+    top: 0px;
     z-index: 2;
     padding: 30px;
-    
+
+    /* テキスト */
     font-size: clamp(15px, 4vw, 25px);
     color: black;
+    /* font-family: 'Gothic A1', sans-serif; */
+    font-weight: 500;
 }
 
 .menu-toggle {
     display: none;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 24px; /* ボタンwebアイコンのサイズ */
     cursor: pointer;
 }
 
@@ -44,6 +50,22 @@
     gap: 25px;
     align-items: center;
     justify-content: center;
+}
+
+.header-right a {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.header-right a:hover{
+    background-color: var(--theme2);
+    color: #fff;
 }
 
 .share-button {
@@ -62,12 +84,17 @@
     cursor: pointer;
 }
 
+.header a {
+    text-decoration: none;
+    color: black;
+}
+
 /* =================== toggle ==================== */
 @media (max-width: 800px) {
     .menu-toggle {
         display: block;
     }
-    .header-right {
+    .header-right { /* 狭い場合の */
         display: none;
         position: absolute;
         top: 70px;
@@ -77,7 +104,8 @@
         border-radius: 0 0 20px 20px;
         padding: 30px;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        gap: 10px;
     }
 
     .header-right::before {
@@ -114,7 +142,8 @@
     border-radius: 20px 20px 0 0;
     width: clamp(100px, 35vw, 350px);
     position: relative;
-    /* 以下テキストの位置 */
+
+    /* テキスト */
     display: flex;
     justify-content: center;
     align-items: center;
