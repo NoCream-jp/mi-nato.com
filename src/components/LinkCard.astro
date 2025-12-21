@@ -34,7 +34,6 @@ const { href, thumbnail, title, description } = Astro.props;
 		border-radius: 15px;
 		overflow: hidden;
 		text-decoration: none;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	}
 
 	.card-image {
@@ -47,7 +46,7 @@ const { href, thumbnail, title, description } = Astro.props;
 	.card-overlay {
 		position: absolute;
 		inset: 0; /* top, right, bottom, left: 0 と同じ */
-		background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); /* 下部を暗くして文字を見やすく */
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent); /* 下部を暗くして文字を見やすく */
 		display: flex;
 		flex-direction: column;
 		align-items: center;

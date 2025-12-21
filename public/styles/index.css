@@ -224,7 +224,7 @@ a {
 }
 
 .news-scroll-wrapper {
-    background-color: #ddd;
+    /* background-color: #ddd; */
     margin: 20px 0 0 0;
 
     width: 100%;
