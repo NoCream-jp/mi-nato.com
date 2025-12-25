@@ -27,11 +27,13 @@ const { href, thumbnail, title, description } = Astro.props;
 
 <style>
 	.link-card {
-		position: relative;
-		display: block;
-		width: 250px;
+        width: 250px;
 		height: 150px;
 		border-radius: 15px;
+        border: solid 6px #fff;
+
+		position: relative;
+		display: block;
 		overflow: hidden;
 		text-decoration: none;
 	}
@@ -46,7 +48,7 @@ const { href, thumbnail, title, description } = Astro.props;
 	.card-overlay {
 		position: absolute;
 		inset: 0; /* top, right, bottom, left: 0 と同じ */
-		background: rgba(0, 0, 0, 0.3); /* 下部を暗くして文字を見やすく */
+		background: rgba(0, 0, 0, 0.2); /* 暗くして文字を見やすく */
 		display: flex;
 		flex-direction: column;
 		align-items: center;

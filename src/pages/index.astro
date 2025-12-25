@@ -7,10 +7,11 @@ const sortedArticles = allArticles.sort((a, b) => b.slug.localeCompare(a.slug)).
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content="My personal website.">
 		<meta name="generator" content={Astro.generator} />
 		<meta name="theme-color" content="#4968bd">
 		<title>mi-nato.com</title>
@@ -146,7 +147,6 @@ const sortedArticles = allArticles.sort((a, b) => b.slug.localeCompare(a.slug)).
 				
 			</div>
 			<span>Copyright ©2025 mi-nato.com</span>
-			<span>https://help.qiita.com/ja/articles/others-brand-guideline</span>
 		</footer>
 		<script is:inline src="/scripts/script.js"></script>
 	</body>

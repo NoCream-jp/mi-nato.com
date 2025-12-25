@@ -72,10 +72,11 @@ body {
 /*
  * 利用規約がbuttonいっぱいだと怪しいので少し縮小。
  * .link-button-img {} より下にないと優先されないので注意
+ * 16pxより小さくしないように
 */
 .Qiita {
-    width: 35px;
-    height: 35px;
+    width: 23px;
+    height: 23px;
 }
 
 #news-scroll-wrapper {
@@ -411,5 +412,4 @@ body {
 
 .button-container i {
     font-size: 1.4rem;
-    
 }

@@ -41,4 +41,3 @@ if (wrapper) {
     wrapper.addEventListener('touchstart', () => cancelAnimationFrame(animationId));
     wrapper.addEventListener('touchend', () => animationId = requestAnimationFrame(autoScroll));
 }
-
