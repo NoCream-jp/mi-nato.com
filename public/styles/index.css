@@ -19,10 +19,10 @@ body {
 }
 
 .share-button {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     background-color: var(--theme2);
     color: white;
     font-size: 100%;
@@ -40,10 +40,10 @@ body {
 }
 
 .link-button {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     background-color: var(--theme2);
     color: white;
     font-size: 100%;
@@ -68,6 +68,14 @@ body {
     /* filter: brightness(0) invert(1); */
 }
 
+#news-scroll-wrapper {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+#news-scroll-wrapper::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+}
+
 /* =================== header ==================== */
 
 .header {
@@ -75,7 +83,7 @@ body {
     background-color: var(--header-bg);
     border-radius: 40px;
     /* border: solid 1px black; */
-    margin: 15px;
+    margin: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -112,18 +120,20 @@ body {
 }
 
 .header-right a {
-    height: 40px;
-    text-align: center;
+    height: 30px;
+    padding: 10px;
     border-radius: 10px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    
+    text-align: center;
 }
 
 .header-right a:hover{
-    background-color: var(--theme2);
     color: #fff;
+    background-color: var(--theme2);
 }
 
 
@@ -138,17 +148,19 @@ body {
         display: block;
     }
     .header-right {
+        width: clamp(100px, 35vw, 350px); /* section-titleとそろえるときれい */
+        top: 70px;
+        right: 0;
+        padding: 20px;
+        border-radius: 0 0 20px 20px;
+
         display: none;
         position: absolute;
-        top: 70px;
-        width: clamp(100px, 35vw, 350px); /* section-titleとそろえるときれい */
-        right: 0;
-        background-color: var(--header-bg);
-        border-radius: 0 0 20px 20px;
-        padding: 30px;
         flex-direction: column;
         align-items: center;
         gap: 10px;
+
+        background-color: var(--header-bg);
     }
 
     .header-right a {
@@ -156,12 +168,14 @@ body {
     }
 
     .header-right::before {
-        content: "";
-        position: absolute;
         top: 50px;
         left: -20px;
         width: 20px;
         height: 20px;
+
+        content: "";
+
+        position: absolute;
         background: radial-gradient(circle at bottom left, transparent 20px, var(--header-bg) 20px);
     }
 
@@ -185,41 +199,48 @@ body {
 .section-title {
     margin: 20px 20px 0px 20px;
     /* padding: 10px; */
-    background-color: var(--section-bg);
     height: 60px;
     border-radius: 20px 20px 0 0;
     width: clamp(100px, 35vw, 350px);
-    position: relative;
 
-    /* テキスト */
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* テキスト */
+    color: white;
+    background-color: var(--section-bg);
     font-size: clamp(15px, 4vw, 25px);
     font-weight: 600;
-    color: white;
 }
 /* 滑らかにつなげたい */
 .section-title::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: -20px;
     width: 20px;
     height: 20px;
+    right: -20px;
+    bottom: 0;
+    
+    content: "";
+    position: absolute;
     /* 右上角中心の円、中心から半径20pxの範囲
     transparent、半径20pxより外色指定 */
     background: radial-gradient(circle at top right, transparent 20px, var(--section-bg) 20px);
 }
 
 .section {
-    background-color: var(--section-bg);
-    height: fit-content;
     min-height: 300px;
+    height: fit-content;
     margin: 0px 20px 20px 20px;
-    border-radius: 0 20px 20px 20px;
     padding: 20px;
+    border-radius: 0 20px 20px 20px;
+
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    background-color: var(--section-bg);
 }
 
 .section-footer {
@@ -227,6 +248,7 @@ body {
     justify-content: flex-end;
     align-items: center;
     gap: 20px;
+
     color: white;
     font-size: clamp(15px, 4vw, 25px);
 }
@@ -242,8 +264,6 @@ body {
     padding: 40px 0; /* 影が切れないように上下に余白 */
     width: 100%;
 
-    /* border-radius: 20px; */
-    /* background-color: #fff; */
     overflow: hidden;
     /* 左右をグラデーションで隠す */
     mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
@@ -272,13 +292,15 @@ body {
     right: 15px;
     width: 40px;
     height: 40px;
-    background-color: var(--header-bg);
     border-radius: 10px; /* ヘッダーのリンクと同じ形 */
+    z-index: 10;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     color: black;
-    z-index: 10;
+    background-color: var(--header-bg);
     transition: background-color 0.3s;
 }
 
@@ -294,6 +316,14 @@ body {
 
 }
 
+.introduction-container {
+    width: 90%;
+    height: 90%;
+
+    display: flex;
+
+    background-color: #fff;
+}
 
 /* =================== footer ==================== */
 .footer {
@@ -302,6 +332,8 @@ body {
     border-radius: 20px 20px 0 0;
     background-color: var(--theme1);
     margin-top: 100px;
+
+    color: #fff;
 
     display: flex;
     flex-direction: column;
@@ -317,7 +349,8 @@ body {
 }
 
 .links-container {
-    width: clamp(300px, 100%, 600px);
+    width: clamp(300px, 100%, 500px);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -333,16 +366,17 @@ body {
     background-color: #fff;
     border-radius: 20px;
     padding: 10px;
-    
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: none;
     box-sizing: border-box;
 
+    color: #000;
+
     text-decoration: none;
     cursor: pointer;
-    color: #000;
 }
 
 @media (max-width: 500px) {
@@ -358,8 +392,10 @@ body {
 
 .button-sentence {
     min-width: 50%;
+
     display: flex;
     align-items: center;
+
     font-weight: 600;
 }
 

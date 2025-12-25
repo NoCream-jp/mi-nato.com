@@ -22,3 +22,23 @@ if (shareButton) {
         }
     });
 }
+
+const wrapper = document.getElementById('news-scroll-wrapper');
+if (wrapper) {
+    let animationId;
+    const speed = 0.8; // スクロール速度
+    const autoScroll = () => {
+        wrapper.scrollLeft += speed;
+        // コンテンツの半分まで来たら巻き戻す（無限スクロール風）
+        if (wrapper.scrollLeft >= wrapper.scrollWidth / 2) {
+            wrapper.scrollLeft -= wrapper.scrollWidth / 2;
+        }
+        animationId = requestAnimationFrame(autoScroll);
+    };
+    animationId = requestAnimationFrame(autoScroll);
+    wrapper.addEventListener('mouseenter', () => cancelAnimationFrame(animationId));
+    wrapper.addEventListener('mouseleave', () => animationId = requestAnimationFrame(autoScroll));
+    wrapper.addEventListener('touchstart', () => cancelAnimationFrame(animationId));
+    wrapper.addEventListener('touchend', () => animationId = requestAnimationFrame(autoScroll));
+}
+

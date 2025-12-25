@@ -12,6 +12,7 @@ const sortedArticles = allArticles.sort((a, b) => b.slug.localeCompare(a.slug)).
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#4968bd">
 		<title>mi-nato.com</title>
 
 		<link rel="stylesheet" href="/styles/index.css">
@@ -47,8 +48,8 @@ const sortedArticles = allArticles.sort((a, b) => b.slug.localeCompare(a.slug)).
 
 		<div class="section-title" id="news">News</div>
 		<div class="news-section section">
-			<div class="news-scroll-wrapper">
-				<div class="news-track">
+			<div class="news-scroll-wrapper" id="news-scroll-wrapper" style="overflow-x: auto;">
+				<div class="news-track" style="animation: none;">
 					{/* ループのために2セット表示 */}
 					{sortedArticles.map((article) => (
 						<LinkCard
@@ -78,7 +79,9 @@ const sortedArticles = allArticles.sort((a, b) => b.slug.localeCompare(a.slug)).
 
 		<div class="section-title" id="about">About</div>
 		<div class="about-section section">
-			<div class=""></div>
+			<div class="introduction-container">
+				
+			</div>
 			<div class="section-footer">
 				<div>read more</div>
 				<a href="/" class="link-button">
