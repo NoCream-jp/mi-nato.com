@@ -3,7 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import LinkCard from '../../components/LinkCard.astro';
 
 const allArticles = await getCollection('article');
-const sortedArticles = allArticles.sort((a, b) => b.slug.localeCompare(a.slug)).slice(0, 5);
+const sortedArticles = allArticles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 5);
 
 // 1. 記事データのパスを生成する
 export async function getStaticPaths() {
@@ -47,39 +47,16 @@ const { Content } = await entry.render();
 
         <div class="article-page-container">
             <div class="article-page-left-container">
-                <div class="section">
-                    <div class="section-title">
-                        Article
+                <article class="article-content">
+                    <h1 class="article-title">{entry.data.title}</h1>
+                    <div class="article-meta">
+                        <span class="article-date">{entry.data.date.toLocaleDateString('ja-JP')}</span>
                     </div>
-                    <article class="article-content">
-                        <h1 class="article-title">{entry.data.title}</h1>
-                        <div class="article-meta">
-                            <span class="article-date">No. {entry.slug}</span>
-                        </div>
-                        <img src={entry.data.thumbnail} alt={entry.data.title} class="article-thumbnail" />
-                        <div class="article-body">
-                            <Content />
-                        </div>
-                    </article>
-                </div>
-            </div>
-            <div class="article-page-right-container">
-                <div class="section">
-                    <div class="section-title">
-                        記事一覧
+                    <img src={entry.data.thumbnail} alt={entry.data.title} class="article-thumbnail" />
+                    <div class="article-body">
+                        <Content />
                     </div>
-                    <div class="card-content">
-                    {sortedArticles.map((article) => (
-                        <LinkCard
-                            href={`/article/${article.slug}`}
-                            thumbnail={article.data.thumbnail}
-                            title={article.data.title}
-                            description={article.data.description}
-                            slug={article.slug}
-                        />
-                    ))}
-                    </div>
-                </div>
+                </article>
             </div>
         </div>
 	</body>
@@ -87,18 +64,18 @@ const { Content } = await entry.render();
 
 <style>
     /* 記事ページ固有のスタイル */
+    .header {
+        margin-bottom: 0;
+    }
 
     .header .fa-arrow-left {
         font-size: 24px;
         font-weight: 600;
     }
 
-    /* .article-body h1 {
-        
-    } */
-
     .article-page-container {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: flex-start;
         gap: auto;
@@ -108,6 +85,7 @@ const { Content } = await entry.render();
 
     .section { /* 記事ページ限定のスタイル */
         display: block;
+        margin: 0 20px 0 20px;
     }
 
     .article-content {
@@ -146,57 +124,6 @@ const { Content } = await entry.render();
     @media (max-width: 510px) { /* モバイルの時文字を小さくする */
         .article-body {
             font-size: 0.8rem;
-        }
-    }
-
-
-    .article-page-left-container {
-        /* flex: 1; */
-        /* min-width: ; */
-    }
-    .article-page-right-container {
-        /* width: 340px; */
-        width: fit-content;
-        flex-shrink: 0;
-    }
-    .article-page-right-container .section-title {
-        max-width: 70%;
-    }
-    .article-page-right-container .section {
-        border-radius: 20px;
-        width: fit-content;
-        margin-top: 80px;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        color: #fff;
-        font-family: "Zalando Sans", sans-serif;
-        font-weight: 600;
-        font-size: clamp(15px, 4vw, 25px);
-    }
-    .article-page-right-container .card-content {
-        width: fit-content;
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    @media (max-width: 900px) {
-        .article-page-container {
-            flex-direction: column;
-        }
-        .article-page-right-container .section {
-            margin-top: 0px;
-
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
         }
     }
 </style>

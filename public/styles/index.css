@@ -3,7 +3,7 @@
 }
 
 :root {
-    /* #4B9C95 */
+    /* テーマカラーから濃淡5色 */
     --theme1: #2c4383;
     --theme2: #3a549c;
     --theme3: #4968bd;
@@ -11,13 +11,11 @@
     --theme5: #9bbdf4;
     --white: #e9e9e9;
 
-    --header-bg: var(--theme2);
-    --header-sentence: var(--white);
-
-    --section-bg: var(--theme3);
-    --button-bg: #97abd7;
-
-    --footer-bg: var(--theme2);
+    /* テキストサイズ */
+    --large: 30px;
+    --medium: 20px;
+    --small: 15px;
+    --header-bg: var(--theme3);
 }
 
 html {
@@ -26,65 +24,32 @@ html {
 }
 
 body {
-    font-family: "Zalando Sans", sans-serif;
+    /* サイズ、配置 */
     margin: 0;
+
+    /* デザイン */
     background-color: var(--theme3);
+    
+    /* コンテンツ */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+    
+    font-family: "Zalando Sans", sans-serif;
+}
+
+@media (min-width: 900px) {
+    body {
+        padding: 0 100px;
+    }
 }
 
 a {
     text-decoration: none;
     color: inherit;
-}
-
-.share-button {
-    width: 50px;
-    height: 50px;
-    border: none;
-    border-radius: 15px;
-    background-color: var(--theme4);
-    color: white;
-    font-size: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
     cursor: pointer;
 }
-
-.share-button:hover {
-    background-color: var(--theme5);
-    color: white;
-}
-
-.share-button,
-.link-button {
-    width: 50px;
-    height: 50px;
-    border: none;
-    border-radius: 10px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: var(--theme4);
-    color: white;
-    font-size: 100%;
-}
-
-
-.share-button:hover,
-.link-button:hover {
-    background-color: var(--theme5);
-    color: white;
-}
-
-.link-button-img {
-    object-fit: contain;
-    /* filter: brightness(0) invert(1); */
-}
-
 /*
  * 利用規約がbuttonいっぱいだと怪しいので少し縮小。
  * .link-button-img {} より下にないと優先されないので注意
@@ -103,53 +68,74 @@ a {
 /* =================== header ==================== */
 
 .header {
-    height: 50px;
-    background-color: var(--header-bg);
-    z-index: 2;
-    padding: 35px;
+    /* サイズ、配置 */
+    height: 100px;
+    margin-bottom: 100px;
 
+    /* 形 */
+    background-color: var(--header-bg);
+    padding: 10px 20px;
+    width: 100%;
+
+    /* コンテンツ */
+    color: var(--white);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0px;
-
-    /* テキスト */
-    font-size: clamp(15px, 3vw, 20px);
-    color: var(--header-sentence);
-    font-weight: 400;
-}
-
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 24px; /* ボタンwebアイコンのサイズ */
-    cursor: pointer;
 }
 
 .header-left {
+    /* サイズ、配置 */
     display: flex;
     align-items: center;
     justify-content: center;
+
+    /* コンテンツ */
+    font-size: var(--large);
+    font-weight: 500;
+}
+
+@media (max-width: 800px) {
+    .header-left {
+        font-size: var(--medium);
+    }
+    .header-right a {
+        font-size: var(--small);
+    }
 }
 
 .header-right {
+    /* サイズ、配置 */
+    width: fit-content;
+    height: 100%;
+    padding: 10px;
+
+    /* デザイン */
+    border: 2px solid var(--white);
+    border-radius: 10px;
+
+    /* コンテンツ */
     display: flex;
-    gap: 10px;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    font-size: var(--medium);
+    font-weight: 500;
 }
 
 .header-right a {
-    height: 50px;
+    /* サイズ、配置 */
+    height: 100%;
     padding: 10px;
     border-radius: 10px;
 
+    /* デザイン */
+
+    /* コンテンツ */
     display: flex;
     align-items: center;
     justify-content: center;
-    
     text-align: center;
 }
 
@@ -163,80 +149,38 @@ a {
     text-decoration: none;
 }
 
-.icon-hamburger {
-    color: var(--white);
-}
 
-/* =================== toggle ==================== */
-@media (max-width: 800px) { /* 狭い場合 */
-    .menu-toggle {
-        display: block;
-    }
-    .header-right {
-        width: clamp(100px, 35vw, 350px); /* section-titleとそろえるときれい */
-        top: 70px;
-        right: 0;
-        padding: 20px;
-        border-radius: 0 0 20px 20px;
-
-        display: none;
-        position: absolute;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-
-        background-color: var(--header-bg);
-    }
-
-    .header-right a {
-        width: 100%;
-    }
-
-    .header-right::before {
-        top: 33px;
-        left: -20px;
-        width: 20px;
-        height: 20px;
-
-        content: "";
-
-        position: absolute;
-        background: radial-gradient(circle at bottom left, transparent 20px, var(--header-bg) 20px);
-    }
-
-    .icon-caret-up {
-        display: none;
-        color: var(--white);
-    }
-
-    /* メニューが開いている時のスタイル */
-    .header.menu-open .header-right {
-        display: flex;
-        top: 37px;
-    }
-    .header.menu-open .icon-hamburger {
-        display: none;
-    }
-    .header.menu-open .icon-caret-up {
-        display: block;
-    }
-}
 
 /* =================== section ==================== */
 
 .section {
-    /* min-height: 300px; */
-    height: fit-content;
-    margin: 100px 0px 0px 0px;
-    border-radius: 0px 0px 0px 0px;
+    /* サイズ、形 */
+    min-height: 600px;
+    /* max-width: ; */
+    padding: 20px;
+    border-radius: 20px;
+    margin: 50px 20px;
+    width: calc(100% - 40px);
+    padding: 50px;
 
+    /* デザイン */
+    border: 2px solid var(--white);
+
+    /* コンテンツ */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    justify-content: space-between;
+    gap: 40px;
+}
 
-    background-color: var(--section-bg);
+.section-header {
+    /* サイズ、形 */
+    height: 30%;
+    /* デザイン */
+    /* コンテンツ */
+    display: flex;
+    justify-content: space-between;
+    align-items: center
 }
 
 .section-title {
@@ -254,22 +198,17 @@ a {
     align-items: center;
     gap: 20px;
 
-    color: white;
+    color: var(--white);
     font-size: clamp(15px, 4vw, 25px);
-}
-
-.news-section {
-    display: flex;
-    flex-direction: column;
 }
 
 /* 複数配置する想定で */
 .link-card-container {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 290px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 20px;
 }
 
 /* wrapperは回転させずに、中身のアイコンのみを45度回転 */
@@ -283,28 +222,168 @@ a {
 }
 
 .introduction-container {
+    /* サイズ、形 */
+    background-color: var(--theme3);
     width: 90%;
     height: 90%;
+    margin: 0 auto;
 
+    /* デザイン */
+
+    
+    /* コンテンツ */
     display: flex;
-
-    background-color: #fff;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    
+    font-size: 1.5rem;
+}
+.introduction-container p {
+    border-bottom: 4px solid var(--theme5);
+    font-size: clamp(10px, 3vw, 22px);
 }
 
-/* =================== footer ==================== */
-.footer {
-    padding: 60px 20px;
-    min-height: 400px;
-    background: var(--footer-bg);
-    margin-top: 80px;
+
+
+
+/* =================== toolbar,top-buttonなど非コンポーネント ==================== */
+
+.toolbar {
+    /* サイズ、形 */
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    position: relative;
+    /* デザイン */
+    border: 2px solid var(--white);
+
+    /* コンテンツ */
+    font-size: var(--small);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-button {
+    /* サイズ、形 */
+    padding: 5px 15px;
+    
+    /* デザイン */
+    border: none;
+    background-color: inherit;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    /* コンテンツ */
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
     color: var(--white);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: var(--small);
+}
+.filter-button:hover {
+    background-color: var(--theme4);
+}
 
+.dropdown-content {
+    /* サイズ、形 */
+    min-width: 120px;
+    left: 0;
+    position: absolute;
+    top: 110%;
+    
+    /* デザイン */
+    border: 2px solid var(--white);
+    border-radius: 8px;
+    background-color: var(--theme3);
+    /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+
+    /* コンテンツ */
+    display: none;
+    color: var(--white);
+    overflow: hidden;
+    z-index: 3;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-item {
+    width: 100%;
+    padding: 10px 16px;
+
+    color: var(--white);
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    display: block;
+    text-decoration: none;
+    text-align: left;
+    font-family: inherit;
+    font-size: var(--small);
+}
+
+.dropdown-item:hover {
+    background-color: var(--theme4);
+}
+.back-to-top-button {
+    /* サイズ，形 */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    z-index: 3;
+
+    /* デザイン */
+    /* border: 2px solid var(--white); */
+    border-radius: 50%;
+    color: var(--white);
+
+    /* コンテンツ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.back-to-top-button:hover {
+    background-color: var(--theme4);
+    /* color: var(--theme2); */
+}
+
+
+
+
+/* =================== footer ==================== */
+
+.footer {
+    /* サイズ、形 */
+    margin-top: 80px;
+    min-height: 400px;
+    padding: 60px 20px;
+    width: 100vw;
+
+    /* デザイン */
+    background: var(--footer-bg);
+    border-top: 2px solid var(--white);
+
+
+    /* コンテンツ */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 48px;
+
+    color: var(--white);
+
 }
 
 .footer-title {
@@ -320,57 +399,8 @@ a {
     max-width: 600px;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, 250px);
+    grid-template-columns: repeat(2, 200px);
     justify-content: center;
 
     gap: 16px;
-}
-
-.button-container {
-    max-width: 250px;
-    width: 100%;
-    height: fit-content;
-    
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    padding: 16px 24px;
-    
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    
-    color: #fff;
-    font-weight: 500;
-    font-size: 1rem;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.button-container:hover {
-    background: rgba(255, 255, 255, 0.2);
-    /* transform: translateY(-2px); */
-}
-
-@media (max-width: 500px) {
-
-}
-
-.button-sentence {
-
-    min-width: 50%;
-
-    display: flex;
-    align-items: center;
-
-    font-size: inherit;
-    font-weight: 600;
-}
-
-.button-container i {
-    font-size: 1.2rem;
-    opacity: 0.9;
 }

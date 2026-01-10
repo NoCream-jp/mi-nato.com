@@ -1,145 +1,120 @@
 ---
+import CategoryTag from '../components/CategoryTag.astro';
+
 interface Props {
 	href: string;
 	thumbnail: string;
 	title: string;
-	description: string;
+    category: string;
 	slug: string;
+    date?: string;
 }
 
-const { href, thumbnail, title, description, slug } = Astro.props;
+const { href, thumbnail, title, category, slug, date } = Astro.props;
 ---
 
-<a href={href} class="link-card">
-	<img src={thumbnail} alt={title} class="card-image" />
-	<div class="card-overlay">
-        <div class="card-content">
-            <h3 class="card-title">{title}</h3>
-            <div class="card-slug">記事No. {slug}</div>
-            <p class="card-description">{description}</p>
-        </div>
-        <div class="card-footer">
-            <div>Article Page</div>
-            <div class="icon-wrapper">
-                <i class="fa-solid fa-arrow-right"></i>
+<a href={href} class="link-card" data-category={category}>
+
+    <div class="card-left-container">
+        <div class="title-container">
+            <div class="card-title">
+                {title}
+            </div>
+            <div class="card-date">
+                {date}
             </div>
         </div>
-	</div>
+            <CategoryTag category={category} />
+    </div>
+
+    <div class="card-right-container">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </div>
+
 </a>
 
 <style>
-	.link-card {
-        width: 290px;
-		height: 200px;
-		border-radius: 15px;
-        /* border: solid 6px #fff; */
+    .link-card {
+        /* サイズ、形 */
+        width: clamp(400px, 90%, 700px);
+        height: 100px;
+        padding: 20px;
+        position: relative;
 
-		position: relative;
-		display: block;
-		overflow: hidden;
-		text-decoration: none;
-	}
+        /* デザイン */
+        background-color: inherit;
 
-	.card-image {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 0.3s ease;
-	}
-
-    .card-content {
-        margin-top: 40px;
-    }
-    .link-card:hover .card-content {
-        margin: 0;
-    }
-	.card-overlay {
-        position: absolute;
-		inset: 0; /* top, right, bottom, left: 0 と同じ */
-		background: rgba(0, 0, 0, 0.2); /* 暗くして文字を見やすく */
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center; /* 通常時は下寄せ */
-		opacity: 1; /* 常時表示 */
-		transition: all 0.3s ease;
-		color: white;
-		padding: 15px;
-		text-align: center;
-	}
-
-	/* ホバー時のスタイル */
-	.link-card:hover .card-overlay {
-		backdrop-filter: blur(5px); /* すりガラス効果 */
-		background: rgba(0, 0, 0, 0.4); /* 文字が見やすいように少し暗く */
-        justify-content: center; /* ホバー時は中央寄せ */
-	}
-
-    .card-title {
-        font-size: 1.1rem;
-        font-weight: bold;
-        margin-bottom: 5px;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .card-slug {
-        margin-top: 20px;
-        font-size: 0.8rem;
-        font-weight: normal;
-        margin-bottom: 5px;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    }
-    .link-card:hover .card-slug {
-        display: none;
-    }
-
-
-    .card-description {
-        font-size: 0.9rem;
-        opacity: 0; /* 通常時は隠す */
-        height: 0;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-    }
-    .link-card:hover .card-description {
-        opacity: 1;
-        height: auto;
-        /* margin-bottom: 15px; */
-    }
-
-    .card-footer {
-        width: 100%;
-        border-bottom: solid 2px white;
-        opacity: 0; /* 通常時は隠す */
-        transform: translateY(20px);
-        transition: all 0.3s ease;
-
+        /* コンテンツ */
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        justify-content: flex-end;
         gap: 10px;
-
-        font-size: 0.8rem;
-    }
-    .link-card:hover .card-footer {
-        opacity: 1;
-        transform: translateY(0);
-        margin-bottom: 15px;
+        color: var(--white);
     }
 
-	.icon-wrapper {
-		font-size: 1rem;
+    .link-card:hover {
+        background-color: var(--theme4);
+    }
+    
+    .card-left-container {
+        width: 90%;
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center;
-        /* transform: rotate(-45deg); */
-	}
+        gap: 10px;
+    }
 
+    .title-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .card-title{
+        font-size: clamp(var(--small), 3vw, var(--medium));
+    }
+
+    .card-date {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    .card-right-container {
+        width: 3%;
+        font-size: 25px;
+    }
+
+    /* ========== 疑似要素でボーダーを描画し、重なりを防ぐ ========== */
+    .link-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--white);
+    }
+
+    .link-card:last-of-type::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--white);
+    }
+
+    /* JSで制御するためのクラス: フィルタリング時に最後の要素に適用 */
+    .link-card.last-visible::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--white);
+    }
 </style>

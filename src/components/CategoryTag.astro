@@ -1,0 +1,26 @@
+---
+interface Props {
+    category: string;
+}
+
+const { category } = Astro.props;
+---
+
+<span class="category-tag">
+    {category}
+</span>
+
+<style>
+    .category-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 999px; /* 丸みのあるタグ形状 */
+        font-size: 0.85rem;
+        font-weight: 500;
+
+        /* 初期状態: 白 */
+        color: var(--white);
+        border: 1px solid var(--white);
+        background-color: transparent;
+    }
+</style>

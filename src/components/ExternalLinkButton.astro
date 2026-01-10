@@ -1,0 +1,75 @@
+---
+interface Props {
+    href: string;
+    description?: string;
+}
+
+const { href, description } = Astro.props;
+---
+
+<a href={href} class="button-container">
+    <div class="button-title">
+        {description}
+    </div>
+    <div class="link-button">
+        <i class="fa-solid fa-arrow-right"></i>
+    </div>
+    <slot />
+</a>
+
+<style>
+    .button-container {
+        /* サイズ、形 */
+        max-width: 200px;
+        width: 200px;
+        height: fit-content;
+
+        /* デザイン */
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        padding: 16px 20px;
+
+        /* コンテンツ */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .button-container:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .button-container i {
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    .link-button {
+        width: 50px;
+        height: 50px;
+        flex-shrink: 0;
+        border: none;
+        border-radius: 10px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: var(--theme4);
+        color: white;
+        font-size: 100%;
+    }
+
+    .link-button-img {
+        object-fit: contain;
+    }
+</style>
