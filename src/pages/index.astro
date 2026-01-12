@@ -57,14 +57,12 @@ const categories = [...new Set(sortedArticles.map((article) => article.data.cate
 					Articles
 				</div>
 				<div class="toolbar">
-					<div class="filter-dropdown">
-						<button id="tag-filter-button" class="filter-button">Tag <i class="fa-solid fa-caret-down"></i></button>
-						<div id="tag-dropdown-content" class="dropdown-content">
-							<button class="dropdown-item" data-category="all">All</button>
-							{categories.map((cat) => (
-								<button class="dropdown-item" data-category={cat}>{cat}</button>
-							))}
-						</div>
+					<button class="filter-button" id="tag-filter-button">Tag <i class="fa-solid fa-caret-down"></i></button>
+					<div id="tag-dropdown-content" class="dropdown-content">
+						<button class="dropdown-item" data-category="all">All</button>
+						{categories.map((cat) => (
+							<button class="dropdown-item" data-category={cat}>{cat}</button>
+						))}
 					</div>
 				</div>
 			</div>

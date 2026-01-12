@@ -114,11 +114,12 @@ a {
     /* サイズ、配置 */
     width: fit-content;
     height: 100%;
-    padding: 10px;
+    /* padding: 10px; */
 
     /* デザイン */
     border: 2px solid var(--white);
     border-radius: 10px;
+    overflow: hidden;
 
     /* コンテンツ */
     display: flex;
@@ -134,7 +135,6 @@ a {
     /* サイズ、配置 */
     height: 100%;
     padding: 10px;
-    border-radius: 10px;
 
     /* デザイン */
 
@@ -278,18 +278,27 @@ a {
     align-items: center;
 }
 
+.filter-dropdown {
+    width: 100%;
+    height: 100%;
+}
+
 .filter-button {
     /* サイズ、形 */
-    padding: 5px 15px;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
     
     /* デザイン */
     border: none;
     background-color: inherit;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     
     /* コンテンツ */
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 8px;
 
@@ -355,7 +364,7 @@ a {
     z-index: 3;
 
     /* デザイン */
-    /* border: 2px solid var(--white); */
+    border: 2px solid var(--white);
     border-radius: 50%;
     color: var(--white);
 
