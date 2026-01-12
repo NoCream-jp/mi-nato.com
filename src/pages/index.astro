@@ -128,13 +128,16 @@ const categories = [...new Set(sortedArticles.map((article) => article.data.cate
 		<footer class="footer">
 			<div class=footer-title>Links</div>
 			<div class="links-container">
-				<ExternalLinkButton href="https://x.com/sXMN1au45a68174" description="X"></ExternalLinkButton>
-				<ExternalLinkButton href="https://github.com/NoCream-jp" description="GiHub"></ExternalLinkButton>
-				<ExternalLinkButton href="https://www.linkedin.com/in/minato-hayashi-1585b03a2/" description="LinkedIn"></ExternalLinkButton>
-				<ExternalLinkButton href="https://qiita.com/_NoCream" description="Qiita"></ExternalLinkButton>
+				<ExternalLinkButton href="https://x.com/sXMN1au45a68174" description="X"><i class="fa-brands fa-x-twitter"></i></ExternalLinkButton>
+				<ExternalLinkButton href="https://github.com/NoCream-jp" description="GiHub"><i class="fa-brands fa-github"></i></ExternalLinkButton>
+				<ExternalLinkButton href="https://www.linkedin.com/in/minato-hayashi-1585b03a2/" description="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></ExternalLinkButton>
+				<ExternalLinkButton href="https://qiita.com/_NoCream" description="Qiita"><img src="/images/qiita-white-icon.png" alt="Qiita" class="Qiita" /></ExternalLinkButton>
 				<ExternalLinkButton href="https://note.com" description="note"></ExternalLinkButton>
-				<ExternalLinkButton href="https://atcoder.jp/users/Caffeineholic" description="AtCoder"></ExternalLinkButton>
+				<ExternalLinkButton href="https://atcoder.jp/users/Caffeineholic" description="AtCoder" class="AtCoder">
+					<img src="/images/AtCoder_logo.png" alt="" class="AtCoder" />
+				</ExternalLinkButton>
 			</div>
+
 			<InternalLinkButton href="/" description="Back to Top"></InternalLinkButton>
 			<span>Copyright ©2025 mi-nato.com</span>
 		</footer>

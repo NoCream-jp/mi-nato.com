@@ -13,9 +13,10 @@ const { href, description, ...attributes } = Astro.props;
         {description}
     </div>
     <div class="link-button">
-        <i class="fa-solid fa-arrow-right"></i>
+        <slot>
+            <i class="fa-solid fa-arrow-right"></i>
+        </slot>
     </div>
-    <slot />
 </a>
 
 <style>
@@ -26,9 +27,8 @@ const { href, description, ...attributes } = Astro.props;
         height: fit-content;
 
         /* デザイン */
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(4px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: var(--theme3);
+        border: 2px solid var(--white);
         border-radius: 16px;
         padding: 16px 20px;
 
@@ -71,6 +71,32 @@ const { href, description, ...attributes } = Astro.props;
     }
 
     .link-button-img {
+        object-fit: contain;
+    }
+
+    /*
+    * アイコンの利用規約がbuttonいっぱいだと怪しいので少し縮小。
+    * .link-button-img {} より下にないと優先されないので注意
+    * 16pxより小さくしないように
+    */
+    :global(.Qiita) {
+        height: auto;
+        width: 27px;
+    }
+    :global(.AtCoder) {
+        height: 100%;
+        width: auto;
+        border-radius: 10px;
+    }
+
+    /* スロット内のアイコンサイズを一括調整 */
+    .link-button :global(i) {
+        font-size: 24px;
+    }
+
+    .link-button :global(img) {
+        /* max-width: 100%; */
+        max-height: 100%;
         object-fit: contain;
     }
 </style>

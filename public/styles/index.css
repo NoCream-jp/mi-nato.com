@@ -50,19 +50,7 @@ a {
     color: inherit;
     cursor: pointer;
 }
-/*
- * 利用規約がbuttonいっぱいだと怪しいので少し縮小。
- * .link-button-img {} より下にないと優先されないので注意
- * 16pxより小さくしないように
-*/
-.Qiita {
-    width: 23px;
-    height: 23px;
-}
-.AtCoder {
-    height: 50px;
 
-}
 
 
 /* =================== header ==================== */
@@ -308,7 +296,7 @@ a {
     font-size: var(--small);
 }
 .filter-button:hover {
-    background-color: var(--theme4);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .dropdown-content {
@@ -352,7 +340,7 @@ a {
 }
 
 .dropdown-item:hover {
-    background-color: var(--theme4);
+    background: rgba(255, 255, 255, 0.2);
 }
 .back-to-top-button {
     /* サイズ，形 */
@@ -376,8 +364,7 @@ a {
 }
 
 .back-to-top-button:hover {
-    background-color: var(--theme4);
-    /* color: var(--theme2); */
+    background: rgba(255, 255, 255, 0.2);
 }
 
 
