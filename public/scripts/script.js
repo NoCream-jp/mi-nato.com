@@ -41,47 +41,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterButton = document.getElementById('tag-filter-button');
     const dropdownContent = document.getElementById('tag-dropdown-content');
     const dropdownItems = document.querySelectorAll('.dropdown-item');
-    const linkCards = document.querySelectorAll('.link-card');
+    const articleItems = document.querySelectorAll('.article-filter-item');
 
-    // プルダウンの開閉
-    filterButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownContent.classList.toggle('show');
-    });
+    if (filterButton && dropdownContent) {
+        // プルダウンの開閉
+        filterButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownContent.classList.toggle('show');
+        });
 
-    // 画面外クリックで閉じる
-    document.addEventListener('click', (e) => {
-        if (!filterButton.contains(e.target) && !dropdownContent.contains(e.target)) {
-            dropdownContent.classList.remove('show');
-        }
-    });
+        // 画面外クリックで閉じる
+        document.addEventListener('click', (e) => {
+            if (!filterButton.contains(e.target) && !dropdownContent.contains(e.target)) {
+                dropdownContent.classList.remove('show');
+            }
+        });
+    }
 
     // カテゴリー選択時の処理
     dropdownItems.forEach(item => {
         item.addEventListener('click', () => {
             const selectedCategory = item.getAttribute('data-category');
             // カードの表示・非表示切り替え
-            let visibleCards = [];
-            linkCards.forEach(card => {
-                const cardCategory = card.getAttribute('data-category');
-                if (selectedCategory === 'all' || cardCategory === selectedCategory) {
-                    card.style.display = 'flex';
-                    visibleCards.push(card);
+            articleItems.forEach(wrapper => {
+                const category = wrapper.getAttribute('data-category');
+                if (selectedCategory === 'all' || category === selectedCategory) {
+                    wrapper.style.display = 'contents';
                 } else {
-                    card.style.display = 'none';
+                    wrapper.style.display = 'none';
                 }
-                // リセット: すべてのカードからlast-visibleを外す
-                card.classList.remove('last-visible');
             });
-
-            // 表示されている最後のカードに下線用のクラスを付与
-            if (visibleCards.length > 0) {
-                visibleCards[visibleCards.length - 1].classList.add('last-visible');
-            }
-
             // ドロップダウンを閉じる
-            dropdownContent.classList.remove('show');
+            if (dropdownContent) dropdownContent.classList.remove('show');
         });
     });
 });
-

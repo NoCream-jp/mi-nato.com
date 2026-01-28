@@ -1,60 +1,62 @@
 ---
-
 interface Props {
-	thumbnail: string;
-	href: string;
-    title?: string;
+  thumbnail: string;
+  href: string;
+  title?: string;
 }
 
 const { thumbnail, href, title } = Astro.props;
 ---
 
 <a href={href} class="link-card">
-    <img src={thumbnail} alt={title || "Work thumbnail"} class="card-thumbnail" />
-    <div class="icon-container">
-        <i class="fa-solid fa-arrow-right"></i>
-    </div>
+  <img src={thumbnail} alt={title || "Work thumbnail"} class="card-thumbnail" />
+  <div class="icon-container">
+    <i class="fa-solid fa-arrow-right"></i>
+  </div>
 </a>
 
 <style>
-    .link-card {
-        position: relative;
-        display: block;
-        width: 100%;
-        height: 250px; /* カードの高さを指定 */
-        border-radius: 16px;
-        overflow: hidden;
-        text-decoration: none;
-        background-color: #f0f0f0;
-    }
+  .link-card {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 250px; /* カードの高さを指定 */
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    background-color: #f0f0f0;
+  }
 
-    .card-thumbnail {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: filter 0.3s ease;
-    }
+  .card-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+    transition: filter 0.3s ease;
+  }
 
-    .icon-container {
-        position: absolute;
-        top: 50%;
-        right: 30px;
-        transform: translateY(-50%);
-        font-size: 3rem;
-        color: var(--theme1);
-        opacity: 0.7;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-        z-index: 2;
-    }
+  .icon-container {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    color: var(--theme1);
+    opacity: 0.7;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    z-index: 2;
+  }
 
-    /* Hover Effects */
-    .link-card:hover .card-thumbnail {
-        filter: blur(4px) brightness(0.7); /* すりガラス風フィルター */
-    }
+  /* Hover Effects */
+  .link-card:hover .card-thumbnail {
+    filter: blur(4px) brightness(0.7); /* すりガラス風フィルター */
+  }
 
-    .link-card:hover .icon-container {
-        opacity: 1;
-        color: var(--white);
-        transform: translateY(-50%) scale(1.1);
-    }
+  .link-card:hover .icon-container {
+    opacity: 1;
+    color: var(--white);
+    transform: translateY(-50%) scale(1.1);
+  }
 </style>

@@ -1,119 +1,117 @@
 ---
-import CategoryTag from '../components/CategoryTag.astro';
+import CategoryTag from "../components/CategoryTag.astro";
 
 interface Props {
-	href: string;
-	thumbnail: string;
-	title: string;
-    category: string;
-    date?: string;
+  href: string;
+  thumbnail: string;
+  title: string;
+  category: string;
+  date?: string;
 }
 
 const { href, thumbnail, title, category, date } = Astro.props;
 ---
 
 <a href={href} class="article-card" data-category={category}>
-
-    <div class="card-left-container">
-        <div class="title-container">
-            <div class="card-title">
-                {title}
-            </div>
-            <div class="card-date">
-                {date}
-            </div>
-        </div>
-            <CategoryTag category={category} />
+  <div class="card-left-container">
+    <div class="title-container">
+      <div class="card-title">
+        {title}
+      </div>
+      <div class="card-date">
+        {date}
+      </div>
     </div>
+    <CategoryTag category={category} />
+  </div>
 
-    <div class="card-right-container">
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-    </div>
-
+  <div class="card-right-container">
+    <i class="fa-solid fa-ellipsis-vertical"></i>
+  </div>
 </a>
 
 <style>
-    .article-card {
-        /* サイズ、形 */
-        width: var(--view-width);
-        height: 100px;
-        padding: 20px;
-        position: relative;
+  .article-card {
+    /* サイズ、形 */
+    width: var(--view-width);
+    height: 100px;
+    padding: 20px;
+    position: relative;
 
-        /* デザイン */
-        background-color: inherit;
+    /* デザイン */
+    background-color: inherit;
 
-        /* コンテンツ */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-        color: var(--white);
-    }
+    /* コンテンツ */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    color: var(--white);
+  }
 
-    .article-card:hover {
-        background-color: var(--theme4);
-    }
-    
-    .card-left-container {
-        width: 90%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-    }
+  .article-card:hover {
+    background-color: var(--theme4);
+  }
 
-    .title-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 2px;
-    }
+  .card-left-container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
 
-    .card-title{
-        font-size: clamp(var(--small), 3vw, var(--medium));
-    }
+  .title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2px;
+  }
 
-    .card-date {
-        font-size: 0.9rem;
-        opacity: 0.8;
-    }
+  .card-title {
+    font-size: clamp(var(--small), 3vw, var(--medium));
+  }
 
-    .card-right-container {
-        width: 3%;
-        font-size: 25px;
-    }
+  .card-date {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
 
-    /* ========== 疑似要素でボーダーを描画し、重なりを防ぐ ========== */
-    .article-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: var(--white);
-    }
+  .card-right-container {
+    width: 3%;
+    font-size: 25px;
+  }
 
-    .article-card:last-of-type::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: var(--white);
-    }
+  /* ========== 疑似要素でボーダーを描画し、重なりを防ぐ ========== */
+  .article-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--white);
+  }
 
-    /* JSで制御するためのクラス: フィルタリング時に最後の要素に適用 */
-    .article-card.last-visible::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: var(--white);
-    }
+  .article-card:last-of-type::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--white);
+  }
+
+  /* JSで制御するためのクラス: フィルタリング時に最後の要素に適用 */
+  .article-card.last-visible::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--white);
+  }
 </style>

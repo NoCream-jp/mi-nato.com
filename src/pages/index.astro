@@ -1,161 +1,229 @@
 ---
-import { getCollection } from 'astro:content';
-import ArticleCard from '../components/ArticleCard.astro';
-import ExternalLinkButton from '../components/ExternalLinkButton.astro';
-import InternalLinkButton from '../components/InternalLinkButton.astro';
-import LinkCard from '../components/LinkCard.astro';
+import { getCollection } from "astro:content";
+import ArticleCard from "../components/ArticleCard.astro";
+import ExternalLinkButton from "../components/ExternalLinkButton.astro";
+import InternalLinkButton from "../components/InternalLinkButton.astro";
+import LinkCard from "../components/LinkCard.astro";
 
-const allArticles = await getCollection('article');
-const sortedArticles = allArticles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const allArticles = await getCollection("article");
+const sortedArticles = allArticles
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 
-const allWorks = await getCollection('work');
+const allWorks = await getCollection("work");
 
 // 表示されている記事からユニークなカテゴリーを抽出
-const categories = [...new Set(sortedArticles.map((article) => article.data.category))];
+const categories = [
+  ...new Set(sortedArticles.map((article) => article.data.category)),
+];
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="description" content="My personal website.">
-		<meta name="generator" content={Astro.generator} />
-		<meta name="theme-color" content="#4968bd">
-		<title>mi-nato.com</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="My personal website." />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#4968bd" />
+    <title>mi-nato.com</title>
 
-		<link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="/styles/index.css" />
 
-		<!-- favicon設置, theme-color -->
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="theme-color" content="#3a549c" />
+    <!-- favicon設置, theme-color -->
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#3a549c" />
 
-		<!-- Font Awesome の読み込み -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome の読み込み -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
-		<!-- Google Fonts の読み込み -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <!-- Google Fonts の読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-left">
+        <a href="/">mi-nato.com</a>
+      </div>
+      <div class="header-right">
+        <a href="#articles">Articles</a>
+        <a href="#about">About</a>
+        <a href="#works">Works</a>
+        <a href="#studies">Studies</a>
+      </div>
+    </header>
 
-	</head>
-	<body>
-		<header class="header">
-			<div class="header-left">
-				<a href="/">mi-nato.com</a>
-			</div>
-			<div class="header-right">
-				<a href="#articles">Articles</a>
-				<a href="#about">About</a>
-				<a href="#works">Works</a>
-				<a href="#studies">Studies</a>
-			</div>
-		</header>
+    <div class="articles-section section" id="articles">
+      <div class="section-header">
+        <div class="section-title">Articles</div>
+        <div class="toolbar">
+          <button class="filter-button" id="tag-filter-button"
+            >Tag <i class="fa-solid fa-caret-down"></i></button
+          >
+          <div id="tag-dropdown-content" class="dropdown-content">
+            <button class="dropdown-item" data-category="all">All</button>
+            {
+              categories.map((cat) => (
+                <button class="dropdown-item" data-category={cat}>
+                  {cat}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+      <div class="article-card-container">
+        {
+          sortedArticles.map((article) => (
+            <div
+              class="article-filter-item"
+              data-category={article.data.category}
+              style="display: contents;"
+            >
+              <ArticleCard
+                href={`/article/${article.slug}`}
+                thumbnail={article.data.thumbnail}
+                title={article.data.title}
+                category={article.data.category}
+                date={article.data.date.toLocaleDateString("ja-JP")}
+              />
+            </div>
+          ))
+        }
+        <div class="more-indicator">
+          <i class="fa-solid fa-ellipsis"></i>
+        </div>
+      </div>
 
-		<div class="articles-section section" id="articles">
-			<div class="section-header">
-				<div class="section-title">
-					Articles
-				</div>
-				<div class="toolbar">
-					<button class="filter-button" id="tag-filter-button">Tag <i class="fa-solid fa-caret-down"></i></button>
-					<div id="tag-dropdown-content" class="dropdown-content">
-						<button class="dropdown-item" data-category="all">All</button>
-						{categories.map((cat) => (
-							<button class="dropdown-item" data-category={cat}>{cat}</button>
-						))}
-					</div>
-				</div>
-			</div>
-			<div class="article-card-container">
-				{sortedArticles.map((article) => (
-					<ArticleCard
-						href={`/article/${article.slug}`}
-						thumbnail={article.data.thumbnail}
-						title={article.data.title}
-						category={article.data.category}
-						date={article.data.date.toLocaleDateString('ja-JP')}
-					/>
-				))}
-				<div class="more-indicator">
-					<i class="fa-solid fa-ellipsis"></i>
-				</div>
-			</div>
+      <div class="section-footer">
+        <InternalLinkButton
+          href="/allarticles"
+          description={`View All (${allArticles.length})`}
+        />
+      </div>
 
-			<div class="section-footer">
-				<InternalLinkButton href="/allarticles" description={`View All (${allArticles.length})`}>
-			</div>
-		</div>
+      <div class="about-section section" id="about">
+        <div class="section-header">
+          <div class="section-title">About</div>
+        </div>
+        <div class="introduction-container">
+          <p>こんにちは，みなと といいます</p>
+          <p>
+            プログラミング，機械学習，webアプリ開発などを勉強中の大学生です．また経営，プロジェクトマネジメントにも興味があります
+          </p>
+          <p>当サイト，是非隅々までご覧になっていって下さい</p>
+        </div>
+        <div class="section-footer">
+          <InternalLinkButton href="/" description="View All" />
+        </div>
 
-		<div class="about-section section" id="about">
-			<div class="section-header">
-				<div class="section-title">
-					About
-				</div>
-			</div>
-			<div class="introduction-container">
-				<p>こんにちは，みなと といいます</p>
-				<p>プログラミング，機械学習，webアプリ開発などを勉強中の大学生です．また経営，プロジェクトマネジメントにも興味があります</p>
-				<p>当サイト，是非隅々までご覧になっていって下さい</p>
-			</div>
-			<div class="section-footer">
-				<InternalLinkButton href="/" description="View All">
-			</div>
-		</div>
+        <div class="section" id="works">
+          <div class="section-header">
+            <div class="section-title">Works</div>
+          </div>
+          <div class="link-card-container">
+            {
+              allWorks.map((work) => (
+                <LinkCard
+                  href={`/${work.slug}`}
+                  thumbnail={work.data.thumbnail}
+                  title={work.data.title}
+                />
+              ))
+            }
+          </div>
+          <div class="section-footer">
+            <InternalLinkButton href="/" description="View All" />
+          </div>
 
-		<div class="section" id="works">
-			<div class="section-header">
-				<div class="section-title">
-					Works
-				</div>
-			</div>
-			<div class="link-card-container">
-				{allWorks.map((work) => (
-					<LinkCard
-						href={`/${work.slug}`}
-						thumbnail={work.data.thumbnail}
-						title={work.data.title}
-					/>
-				))}
-			</div>
-			<div class="section-footer">
-				<InternalLinkButton href="/" description="View All">
-			</div>
-		</div>
+          <div class="section" id="studies">
+            <div class="section-header">
+              <div class="section-title">Studies</div>
+            </div>
+            <div class="section-footer">
+              <InternalLinkButton href="/" description="View All" />
+            </div>
 
-		<div class="section" id="studies">
-			<div class="section-header">
-				<div class="section-title">
-					Studies
-				</div>
-			</div>
-			<div class="section-footer">
-				<InternalLinkButton href="/" description="View All">
-			</div>
-		</div>
+            <footer class="footer">
+              <div class="footer-title">Links</div>
+              <div class="links-container">
+                <ExternalLinkButton
+                  href="https://x.com/sXMN1au45a68174"
+                  description="X"
+                  ><i class="fa-brands fa-x-twitter"></i></ExternalLinkButton
+                >
+                <ExternalLinkButton
+                  href="https://github.com/NoCream-jp"
+                  description="GiHub"
+                  ><i class="fa-brands fa-github"></i></ExternalLinkButton
+                >
+                <ExternalLinkButton
+                  href="https://www.linkedin.com/in/m-hayashi/"
+                  description="LinkedIn"
+                  ><i class="fa-brands fa-linkedin-in"></i></ExternalLinkButton
+                >
+                <ExternalLinkButton
+                  href="https://qiita.com/_NoCream"
+                  description="Qiita"
+                  ><img
+                    src="/images/qiita-white-icon.png"
+                    alt="Qiita"
+                    class="Qiita"
+                  /></ExternalLinkButton
+                >
+                <ExternalLinkButton
+                  href="https://note.com/mi_nat0"
+                  description="note"
+                  ><img
+                    src="/images/note-logo.png"
+                    alt=""
+                    class="note"
+                  /></ExternalLinkButton
+                >
+                <ExternalLinkButton
+                  href="https://zenn.dev/nocream"
+                  description="Zenn"
+                  ><img
+                    src="/images/zenn-logo-color-transparent.png"
+                    alt="Zenn"
+                    class="Zenn"
+                  /></ExternalLinkButton
+                >
+                <ExternalLinkButton
+                  href="https://atcoder.jp/users/Caffeineholic"
+                  description="AtCoder"
+                  class="AtCoder"
+                >
+                  <img src="/images/AtCoder_logo.png" alt="" class="AtCoder" />
+                </ExternalLinkButton>
+              </div>
+              <span>Copyright ©2025 mi-nato.com</span>
+            </footer>
 
-		<footer class="footer">
-			<div class=footer-title>Links</div>
-			<div class="links-container">
-				<ExternalLinkButton href="https://x.com/sXMN1au45a68174" description="X"><i class="fa-brands fa-x-twitter"></i></ExternalLinkButton>
-				<ExternalLinkButton href="https://github.com/NoCream-jp" description="GiHub"><i class="fa-brands fa-github"></i></ExternalLinkButton>
-				<ExternalLinkButton href="https://www.linkedin.com/in/m-hayashi/" description="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></ExternalLinkButton>
-				<ExternalLinkButton href="https://qiita.com/_NoCream" description="Qiita"><img src="/images/qiita-white-icon.png" alt="Qiita" class="Qiita" /></ExternalLinkButton>
-				<ExternalLinkButton href="https://note.com/mi_nat0" description="note"><img src="/images/note-logo.png" alt="" class="note"></ExternalLinkButton>
-				<ExternalLinkButton href="https://zenn.dev/nocream" description="Zenn"><img src="/images/zenn-logo-color-transparent.png" alt="Zenn" class="Zenn"></ExternalLinkButton>
-				<ExternalLinkButton href="https://atcoder.jp/users/Caffeineholic" description="AtCoder" class="AtCoder">
-					<img src="/images/AtCoder_logo.png" alt="" class="AtCoder" />
-				</ExternalLinkButton>
-			</div>
-			<span>Copyright ©2025 mi-nato.com</span>
-		</footer>
+            <a href="#" class="back-to-top-button">
+              <i class="fa-solid fa-angle-up"></i>
+            </a>
 
-		<a href="#" class="back-to-top-button">
-			<i class="fa-solid fa-angle-up"></i>
-		</a>
-
-		<script is:inline src="/scripts/script.js"></script>
-	</body>
+            <script is:inline src="/scripts/script.js"></script>
+          </div>
+        </div>
+      </div>
+    </div></body
+  >
 </html>

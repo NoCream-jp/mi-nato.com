@@ -1,109 +1,109 @@
 ---
 interface Props {
-    href: string;
-    description?: string;
-    [key: string]: any;
+  href: string;
+  description?: string;
+  [key: string]: any;
 }
 
 const { href, description, ...attributes } = Astro.props;
 ---
 
 <a href={href} class="button-container" {...attributes}>
-    <div class="button-title">
-        {description}
-    </div>
-    <div class="link-button">
-        <slot>
-            <i class="fa-solid fa-arrow-right"></i>
-        </slot>
-    </div>
+  <div class="button-title">
+    {description}
+  </div>
+  <div class="link-button">
+    <slot>
+      <i class="fa-solid fa-arrow-right"></i>
+    </slot>
+  </div>
 </a>
 
 <style>
-    .button-container {
-        /* サイズ、形 */
-        max-width: 200px;
-        width: 200px;
-        height: fit-content;
+  .button-container {
+    /* サイズ、形 */
+    max-width: 200px;
+    width: 200px;
+    height: fit-content;
 
-        /* デザイン */
-        background: var(--theme3);
-        border: 2px solid var(--white);
-        border-radius: 16px;
-        padding: 16px 20px;
+    /* デザイン */
+    background: var(--theme3);
+    border: 2px solid var(--white);
+    border-radius: 16px;
+    padding: 16px 20px;
 
-        /* コンテンツ */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
+    /* コンテンツ */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
 
-        color: #fff;
-        font-weight: 500;
-        font-size: 1rem;
-        text-decoration: none;
-        cursor: pointer;
-    }
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-    .button-container:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
+  .button-container:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
 
-    .button-container i {
-        font-size: 1.2rem;
-        opacity: 0.9;
-    }
+  .button-container i {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
 
-    .link-button {
-        width: 50px;
-        height: 50px;
-        flex-shrink: 0;
-        border: none;
-        border-radius: 10px;
+  .link-button {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 10px;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-        background-color: var(--theme4);
-        color: white;
-        font-size: 100%;
-    }
+    background-color: var(--theme4);
+    color: white;
+    font-size: 100%;
+  }
 
-    .link-button-img {
-        object-fit: contain;
-    }
+  .link-button-img {
+    object-fit: contain;
+  }
 
-    /*
+  /*
     * アイコンの利用規約がbuttonいっぱいだと怪しいので少し縮小。
     * .link-button-img {} より下にないと優先されないので注意
     * 16pxより小さくしないように
     */
-    :global(.Qiita) {
-        height: auto;
-        width: 27px;
-    }
-    :global(.AtCoder) {
-        height: 100%;
-        width: auto;
-        border-radius: 10px;
-    }
-    :global(.Zenn) {
-        height: 50%;
-        filter: brightness(0) invert(1);
-    }
-    :global(.note) {
-        height: 80%;
-        filter:brightness(0) invert(1);
-    }
+  :global(.Qiita) {
+    height: auto;
+    width: 27px;
+  }
+  :global(.AtCoder) {
+    height: 100%;
+    width: auto;
+    border-radius: 10px;
+  }
+  :global(.Zenn) {
+    height: 50%;
+    filter: brightness(0) invert(1);
+  }
+  :global(.note) {
+    height: 80%;
+    filter: brightness(0) invert(1);
+  }
 
-    /* スロット内のアイコンサイズを一括調整 */
-    .link-button :global(i) {
-        font-size: 24px;
-    }
-    .link-button :global(img) {
-        /* max-width: 100%; */
-        max-height: 100%;
-        object-fit: contain;
-    }
+  /* スロット内のアイコンサイズを一括調整 */
+  .link-button :global(i) {
+    font-size: 24px;
+  }
+  .link-button :global(img) {
+    /* max-width: 100%; */
+    max-height: 100%;
+    object-fit: contain;
+  }
 </style>

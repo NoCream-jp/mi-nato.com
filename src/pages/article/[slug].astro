@@ -1,142 +1,161 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
-import CategoryTag from '../../components/CategoryTag.astro';
-import LinkCard from '../../components/LinkCard.astro';
+import { getCollection, type CollectionEntry } from "astro:content";
+import CategoryTag from "../../components/CategoryTag.astro";
+import LinkCard from "../../components/LinkCard.astro";
 
-const allArticles = await getCollection('article');
-const sortedArticles = allArticles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 5);
+const allArticles = await getCollection("article");
+const sortedArticles = allArticles
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
 
 // 1. 記事データのパスを生成する
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('article');
+  const blogEntries = await getCollection("article");
   return blogEntries.map((entry) => ({
-    params: { slug: entry.slug }, props: { entry }
+    params: { slug: entry.slug },
+    props: { entry },
   }));
 }
 
 interface Props {
-  entry: CollectionEntry<'article'>;
+  entry: CollectionEntry<"article">;
 }
 
 // 2. 記事データを受け取り、本文をレンダリングする
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>{entry.data.title} | mi-nato.com</title>
-		<link rel="icon" href="/favicon.ico" />
-		<link rel="stylesheet" href="/styles/index.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap" rel="stylesheet">
-	</head>
-	<body>
-		<header class="header">
-			<div class="header-left">
-				<a href="/">mi-nato.com</a>
-			</div>
-			<div class="header-right">
-				<a href="/">Home</a>
-				<a href="/#about">About</a>
-				<a href="/#works">Works</a>
-				<a href="/#studies">Studies</a>
-			</div>
-		</header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{entry.data.title} | mi-nato.com</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/styles/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-left">
+        <a href="/">mi-nato.com</a>
+      </div>
+      <div class="header-right">
+        <a href="/">Home</a>
+        <a href="/#about">About</a>
+        <a href="/#works">Works</a>
+        <a href="/#studies">Studies</a>
+      </div>
+    </header>
 
-        <div class="article-page-container">
-            <div class="article-page-left-container">
-                <article class="article-content">
-                    <h1 class="article-title">{entry.data.title}</h1>
-                    <div class="article-meta">
-                        <CategoryTag category={entry.data.category}></CategoryTag>
-                        <span class="article-date">{entry.data.date.toLocaleDateString('ja-JP')}</span>
-                    </div>
-                    <img src={entry.data.thumbnail} alt={entry.data.title} class="article-thumbnail" />
-                    <div class="article-body">
-                        <Content />
-                    </div>
-                </article>
-            </div>
-        </div>
-        <a href="#" class="back-to-top-button">
-			<i class="fa-solid fa-angle-up"></i>
-		</a>
-	</body>
+    <div class="article-page-container">
+      <div class="article-page-left-container">
+        <article class="article-content">
+          <h1 class="article-title">{entry.data.title}</h1>
+          <div class="article-meta">
+            <CategoryTag category={entry.data.category} />
+            <span class="article-date"
+              >{entry.data.date.toLocaleDateString("ja-JP")}</span
+            >
+          </div>
+          <img
+            src={entry.data.thumbnail}
+            alt={entry.data.title}
+            class="article-thumbnail"
+          />
+          <div class="article-body">
+            <Content />
+          </div>
+        </article>
+      </div>
+    </div>
+    <a href="#" class="back-to-top-button">
+      <i class="fa-solid fa-angle-up"></i>
+    </a>
+  </body>
 </html>
 
 <style>
-    /* 記事ページ固有のスタイル */
-    .header {
-        margin-bottom: 0;
-    }
+  /* 記事ページ固有のスタイル */
+  .header {
+    margin-bottom: 0;
+  }
 
-    .header .fa-arrow-left {
-        font-size: 24px;
-        font-weight: 600;
-    }
+  .header .fa-arrow-left {
+    font-size: 24px;
+    font-weight: 600;
+  }
 
-    .article-page-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        gap: auto;
-        max-width: 1500px;
-        margin: 10px;
-    }
+  .article-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: auto;
+    max-width: 1500px;
+    margin: 10px;
+  }
 
-    .section { /* 記事ページ限定のスタイル */
-        display: block;
-        margin: 0 20px 0 20px;
-    }
+  .section {
+    /* 記事ページ限定のスタイル */
+    display: block;
+    margin: 0 20px 0 20px;
+  }
 
-    .article-content {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 40px;
-        border-radius: 20px;
-        max-width: 800px;
-        margin: 0 auto;
-        color: #333;
-    }
-    .article-title {
-        font-size: 2rem;
-        margin-bottom: 20px;
-        color: #333;
-    }
-    .article-meta {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        color: #666;
-        font-size: 0.9rem;
-        margin-bottom: 20px;
-    }
-    .article-meta :global(.category-tag) {
-        color: #666;
-        border-color: #666;
-    }
-    .article-thumbnail {
-        width: 100%;
-        height: auto;
-        max-height: 400px;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 30px;
-    }
+  .article-content {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #333;
+  }
+  .article-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  .article-meta :global(.category-tag) {
+    color: #666;
+    border-color: #666;
+  }
+  .article-thumbnail {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+  .article-body {
+    line-height: 1.8;
+    font-size: 1.1rem; /* ここで文字の大きさを調整します */
+  }
+
+  @media (max-width: 510px) {
+    /* モバイルの時文字を小さくする */
     .article-body {
-        line-height: 1.8;
-        font-size: 1.1rem; /* ここで文字の大きさを調整します */
+      font-size: 0.8rem;
     }
-
-    @media (max-width: 510px) { /* モバイルの時文字を小さくする */
-        .article-body {
-            font-size: 0.8rem;
-        }
-    }
+  }
 </style>
