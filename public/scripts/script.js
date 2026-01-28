@@ -76,3 +76,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// フィルタリング操作を監視して、表示されている最後の要素にクラスを付与し直す
+const container = document.querySelector(".article-card-container");
+
+const updateLastVisible = () => {
+  const items = document.querySelectorAll(".article-filter-item");
+  let lastVisible = null;
+
+  for (const item of items) {
+    item.classList.remove("last-visible");
+    // display: none でない要素を追跡（これが表示されている最後の要素になる）
+    if (item.style.display !== "none") {
+      lastVisible = item;
+    }
+  }
+
+  if (lastVisible) {
+    lastVisible.classList.add("last-visible");
+  }
+};
+
+if (container) {
+  const observer = new MutationObserver((mutations) => {
+    // style属性が変更された場合のみ再計算
+    const isStyleChanged = mutations.some(
+      (m) => m.type === "attributes" && m.attributeName === "style",
+    );
+    if (isStyleChanged) {
+      updateLastVisible();
+    }
+  });
+
+  observer.observe(container, {
+    attributes: true,
+    subtree: true, // 子要素（.article-filter-item）の属性変更を監視
+    attributeFilter: ["style"], // style属性のみ監視
+  });
+}
