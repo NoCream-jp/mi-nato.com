@@ -5,11 +5,12 @@ import ExternalLinkButton from "../components/ExternalLinkButton.astro";
 import InternalLinkButton from "../components/InternalLinkButton.astro";
 import LinkCard from "../components/LinkCard.astro";
 
+/* content/からディレクトリ名で指定する */
 const allArticles = await getCollection("article");
 const sortedArticles = allArticles
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
-
+/* content/からディレクトリ名で指定する */
 const allWorks = await getCollection("work");
 
 // 表示されている記事からユニークなカテゴリーを抽出
@@ -90,9 +91,12 @@ const categories = [
       </div>
       <div class="article-card-container">
         {
-          sortedArticles.map((article) => (
+          sortedArticles.map((article, index) => (
             <div
-              class="article-filter-item"
+              class:list={[
+                "article-filter-item",
+                { "last-visible": index === sortedArticles.length - 1 },
+              ]}
               data-category={article.data.category}
               style="display: contents;"
             >
@@ -117,113 +121,162 @@ const categories = [
           description={`View All (${allArticles.length})`}
         />
       </div>
+    </div>
 
-      <div class="about-section section" id="about">
-        <div class="section-header">
-          <div class="section-title">About</div>
-        </div>
-        <div class="introduction-container">
-          <p>こんにちは，みなと といいます</p>
-          <p>
-            プログラミング，機械学習，webアプリ開発などを勉強中の大学生です．また経営，プロジェクトマネジメントにも興味があります
-          </p>
-          <p>当サイト，是非隅々までご覧になっていって下さい</p>
-        </div>
-        <div class="section-footer">
-          <InternalLinkButton href="/" description="View All" />
-        </div>
-
-        <div class="section" id="works">
-          <div class="section-header">
-            <div class="section-title">Works</div>
-          </div>
-          <div class="link-card-container">
-            {
-              allWorks.map((work) => (
-                <LinkCard
-                  href={`/${work.slug}`}
-                  thumbnail={work.data.thumbnail}
-                  title={work.data.title}
-                />
-              ))
-            }
-          </div>
-          <div class="section-footer">
-            <InternalLinkButton href="/" description="View All" />
-          </div>
-
-          <div class="section" id="studies">
-            <div class="section-header">
-              <div class="section-title">Studies</div>
-            </div>
-            <div class="section-footer">
-              <InternalLinkButton href="/" description="View All" />
-            </div>
-
-            <footer class="footer">
-              <div class="footer-title">Links</div>
-              <div class="links-container">
-                <ExternalLinkButton
-                  href="https://x.com/sXMN1au45a68174"
-                  description="X"
-                  ><i class="fa-brands fa-x-twitter"></i></ExternalLinkButton
-                >
-                <ExternalLinkButton
-                  href="https://github.com/NoCream-jp"
-                  description="GiHub"
-                  ><i class="fa-brands fa-github"></i></ExternalLinkButton
-                >
-                <ExternalLinkButton
-                  href="https://www.linkedin.com/in/m-hayashi/"
-                  description="LinkedIn"
-                  ><i class="fa-brands fa-linkedin-in"></i></ExternalLinkButton
-                >
-                <ExternalLinkButton
-                  href="https://qiita.com/_NoCream"
-                  description="Qiita"
-                  ><img
-                    src="/images/qiita-white-icon.png"
-                    alt="Qiita"
-                    class="Qiita"
-                  /></ExternalLinkButton
-                >
-                <ExternalLinkButton
-                  href="https://note.com/mi_nat0"
-                  description="note"
-                  ><img
-                    src="/images/note-logo.png"
-                    alt=""
-                    class="note"
-                  /></ExternalLinkButton
-                >
-                <ExternalLinkButton
-                  href="https://zenn.dev/nocream"
-                  description="Zenn"
-                  ><img
-                    src="/images/zenn-logo-color-transparent.png"
-                    alt="Zenn"
-                    class="Zenn"
-                  /></ExternalLinkButton
-                >
-                <ExternalLinkButton
-                  href="https://atcoder.jp/users/Caffeineholic"
-                  description="AtCoder"
-                  class="AtCoder"
-                >
-                  <img src="/images/AtCoder_logo.png" alt="" class="AtCoder" />
-                </ExternalLinkButton>
-              </div>
-              <span>Copyright ©2025 mi-nato.com</span>
-            </footer>
-
-            <a href="#" class="back-to-top-button">
-              <i class="fa-solid fa-angle-up"></i>
-            </a>
-
-            <script is:inline src="/scripts/script.js"></script>
-          </div>
-        </div>
+    <div class="about-section section" id="about">
+      <div class="section-header">
+        <div class="section-title">About</div>
       </div>
-    </div></body
-  >
+      <div class="introduction-container">
+        <p>こんにちは，みなと といいます</p>
+        <p>
+          プログラミング，機械学習，webアプリ開発などを勉強中の大学生です．また経営，プロジェクトマネジメントにも興味があります
+        </p>
+        <p>当サイト，是非隅々までご覧になっていって下さい</p>
+      </div>
+      <div class="section-footer">
+        <InternalLinkButton href="/" description="View All" />
+      </div>
+    </div>
+
+    <div class="section" id="works">
+      <div class="section-header">
+        <div class="section-title">Works</div>
+      </div>
+      <div class="link-card-container">
+        {
+          allWorks.map((work) => (
+            <LinkCard
+              href={`/${work.slug}`}
+              thumbnail={work.data.thumbnail}
+              title={work.data.title}
+            />
+          ))
+        }
+      </div>
+      <div class="section-footer">
+        <InternalLinkButton href="/" description="View All" />
+      </div>
+    </div>
+
+    <div class="section" id="studies">
+      <div class="section-header">
+        <div class="section-title">Studies</div>
+      </div>
+      <div class="section-footer">
+        <InternalLinkButton href="/" description="View All" />
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-title">Links</div>
+      <div class="links-container">
+        <ExternalLinkButton href="https://x.com/sXMN1au45a68174" description="X"
+          ><i class="fa-brands fa-x-twitter"></i></ExternalLinkButton
+        >
+        <ExternalLinkButton
+          href="https://github.com/NoCream-jp"
+          description="GiHub"
+          ><i class="fa-brands fa-github"></i></ExternalLinkButton
+        >
+        <ExternalLinkButton
+          href="https://www.linkedin.com/in/m-hayashi/"
+          description="LinkedIn"
+          ><i class="fa-brands fa-linkedin-in"></i></ExternalLinkButton
+        >
+        <ExternalLinkButton
+          href="https://qiita.com/_NoCream"
+          description="Qiita"
+          ><img
+            src="/images/qiita-white-icon.png"
+            alt="Qiita"
+            class="Qiita"
+          /></ExternalLinkButton
+        >
+        <ExternalLinkButton href="https://note.com/mi_nat0" description="note"
+          ><img
+            src="/images/note-logo.png"
+            alt=""
+            class="note"
+          /></ExternalLinkButton
+        >
+        <ExternalLinkButton href="https://zenn.dev/nocream" description="Zenn"
+          ><img
+            src="/images/zenn-logo-color-transparent.png"
+            alt="Zenn"
+            class="Zenn"
+          /></ExternalLinkButton
+        >
+        <ExternalLinkButton
+          href="https://atcoder.jp/users/Caffeineholic"
+          description="AtCoder"
+          class="AtCoder"
+        >
+          <img src="/images/AtCoder_logo.png" alt="" class="AtCoder" />
+        </ExternalLinkButton>
+      </div>
+      <span>Copyright ©2025 mi-nato.com</span>
+    </footer>
+
+    <a href="#" class="back-to-top-button">
+      <i class="fa-solid fa-angle-up"></i>
+    </a>
+
+    <script is:inline src="/scripts/script.js"></script>
+  </body>
 </html>
+
+<script>
+  // フィルタリング操作を監視して、表示されている最後の要素にクラスを付与し直す
+  const container = document.querySelector(".article-card-container");
+
+  const updateLastVisible = () => {
+    const items = document.querySelectorAll(
+      ".article-filter-item",
+    ) as NodeListOf<HTMLElement>;
+    let lastVisible: HTMLElement | null = null;
+
+    for (const item of items) {
+      item.classList.remove("last-visible");
+      // display: none でない要素を追跡（これが表示されている最後の要素になる）
+      if (item.style.display !== "none") {
+        lastVisible = item;
+      }
+    }
+
+    if (lastVisible) {
+      lastVisible.classList.add("last-visible");
+    }
+  };
+
+  if (container) {
+    const observer = new MutationObserver((mutations) => {
+      // style属性が変更された場合のみ再計算
+      const isStyleChanged = mutations.some(
+        (m) => m.type === "attributes" && m.attributeName === "style",
+      );
+      if (isStyleChanged) {
+        updateLastVisible();
+      }
+    });
+
+    observer.observe(container, {
+      attributes: true,
+      subtree: true, // 子要素（.article-filter-item）の属性変更を監視
+      attributeFilter: ["style"], // style属性のみ監視
+    });
+  }
+</script>
+
+<style>
+  /* フィルタリング時の最後の要素に下線を表示 */
+  .article-filter-item.last-visible :global(.article-card)::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--white);
+  }
+</style>
